@@ -168,9 +168,6 @@ $(document).ready(function() {
   $("select#select-instrument").on("change", function() {
     $.layers($(this).val());
   });
-  gtag('event', 'color_scheme', {
-    'color_scheme': (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-  });
 });
 $.loadSimple = function(file) {
   for (i = 0; i <= 1; i++) {
@@ -202,10 +199,6 @@ $.play = function(instrument, key, state) {
       }
       lowLag.play(instrumentName + commonKey);
       $.layers(Object.keys(LayersPerInstrumentEnum).find(k => LayersPerInstrumentEnum[k] == instrument), true);
-      gtag('event', 'sound_play', {
-        'instrument': instrumentName,
-        'key': key
-      });
     } else {
       pressed.remove(commonKey);
     }
@@ -291,7 +284,7 @@ $(document).on("touchstart touchend", function(e) {
 
 var link_StrayRogue = "<a href=\"https://twitter.com/StrayRogue\" target=\"_blank\">@StrayRogue</a>";
 var link_DitzyFlama = "<a href=\"https://twitter.com/DitzyFlama\" target=\"_blank\">@DitzyFlama</a>";
-var link_EricHuber = "<a href=\"https://eric.gg/?utm_source=bongo.cat\" target=\"_blank\">Eric Huber</a> (<a href=\"https://twitter.com/Externalizable\" target=\"_blank\">@Externalizable</a>)";
+var link_EricHuber = "<a href=\"https://eric.gg/?utm_source=bongo.cat\" target=\"_blank\">Eric Huber</a>";
 var i18n_map = {
   "Bongos": {
     "en": "Bongos",
@@ -375,6 +368,7 @@ function internationalize() {
     var id = $(this).attr("i18n");
     this.innerHTML = i18n_map[id][lang];
   });
+  $("html").attr("lang", lang);
 }
 window.addEventListener("languagechange", internationalize);
 document.addEventListener("DOMContentLoaded", internationalize)
